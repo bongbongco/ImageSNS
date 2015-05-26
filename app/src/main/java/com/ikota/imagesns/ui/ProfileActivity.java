@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -22,15 +22,14 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.ikota.imagesns.R;
+import com.ikota.imagesns.net.ApiCaller;
+import com.ikota.imagesns.net.MySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-
-import ikota.com.imagelistapp.R;
-import ikota.com.imagelistapp.net.ApiCaller;
-import ikota.com.imagelistapp.net.MySingleton;
 
 /**
  * Created by kota on 2015/04/08.
@@ -255,7 +254,7 @@ public class ProfileActivity extends ActionBarActivity {
         } else if(id == R.id.action_account) {
             Intent intent = new Intent(ProfileActivity.this, SettingsActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_from_right, R.anim.fade_out_depth );
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.fade_out_depth);
         } else if(id == R.id.action_reset) {
             Util.resetData(ProfileActivity.this);
         }

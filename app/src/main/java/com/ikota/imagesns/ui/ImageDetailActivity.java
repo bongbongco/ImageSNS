@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.animation.ObjectAnimator;
 import android.content.ActivityNotFoundException;
@@ -21,11 +21,12 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.ikota.imagesns.R;
+import com.ikota.imagesns.net.MySingleton;
 
 import java.io.File;
 
-import ikota.com.imagelistapp.R;
-import ikota.com.imagelistapp.net.MySingleton;
+
 
 
 /**

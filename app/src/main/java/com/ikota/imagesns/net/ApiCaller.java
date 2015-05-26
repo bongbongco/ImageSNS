@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.net;
+package com.ikota.imagesns.net;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,12 +8,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.ikota.imagesns.ui.Util;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import ikota.com.imagelistapp.ui.Util;
 
 /**
  * Created by kota on 2014/10/05.

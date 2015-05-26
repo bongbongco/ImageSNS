@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.bean;
+package com.ikota.imagesns.bean;
 
 /**
  * Created by kota on 2015/04/17.

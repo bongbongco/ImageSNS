@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.net;
+package com.ikota.imagesns.net;
 
 import android.content.Context;
 

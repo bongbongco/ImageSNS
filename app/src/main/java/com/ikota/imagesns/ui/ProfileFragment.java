@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.os.Bundle;
 

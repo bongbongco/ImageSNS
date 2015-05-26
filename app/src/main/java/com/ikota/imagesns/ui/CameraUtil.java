@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Surface;
 import android.widget.Toast;
 
+import com.ikota.imagesns.R;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,7 +25,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ikota.com.imagelistapp.R;
 
 
 /**

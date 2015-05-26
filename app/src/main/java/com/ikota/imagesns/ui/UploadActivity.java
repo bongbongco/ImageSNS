@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
@@ -16,11 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.ikota.imagesns.R;
+import com.ikota.imagesns.net.ApiCaller;
 
 import java.io.File;
-
-import ikota.com.imagelistapp.R;
-import ikota.com.imagelistapp.net.ApiCaller;
 
 /**
  * Created by kota on 2015/04/26.

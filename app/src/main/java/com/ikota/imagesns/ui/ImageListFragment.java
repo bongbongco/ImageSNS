@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,10 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.google.gson.Gson;
+import com.ikota.imagesns.R;
+import com.ikota.imagesns.bean.ContentBean;
+import com.ikota.imagesns.net.ApiCaller;
+import com.ikota.imagesns.net.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,11 +36,6 @@ import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import ikota.com.imagelistapp.R;
-import ikota.com.imagelistapp.bean.ContentBean;
-import ikota.com.imagelistapp.net.ApiCaller;
-import ikota.com.imagelistapp.net.MySingleton;
 
 /**
  * Created by kota on 2015/03/06.

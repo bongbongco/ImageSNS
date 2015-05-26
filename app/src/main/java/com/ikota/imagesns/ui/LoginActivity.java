@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -21,13 +21,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.VolleyError;
+import com.ikota.imagesns.R;
+import com.ikota.imagesns.net.ApiCaller;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import ikota.com.imagelistapp.R;
-import ikota.com.imagelistapp.net.ApiCaller;
 
 /**
  * Created by kota on 2015/05/26.

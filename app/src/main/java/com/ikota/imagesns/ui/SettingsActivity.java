@@ -1,4 +1,4 @@
-package ikota.com.imagelistapp.ui;
+package com.ikota.imagesns.ui;
 
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
-import ikota.com.imagelistapp.R;
+import com.ikota.imagesns.R;
+
 
 /**
  * Created by kota on 2015/04/18.
