@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_group_account"
+        android:key="pref_key_account">
+        <EditTextPreference
+            android:key="pref_name"
+            android:title="@string/pref_name"
+            android:defaultValue=""
+            android:dialogTitle="@string/pref_name_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_group_general"
+        android:key="pref_key_general">
+        <CheckBoxPreference
+            android:key="pref_push_notification"
+            android:title="@string/pref_push_notification"
+            android:defaultValue="true" />
+        <Preference android:title="@string/pref_privacy" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.kawaiimuseum.net/privacy" />
+        </Preference>
+        <Preference android:title="@string/pref_term" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.kawaiimuseum.net/terms" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

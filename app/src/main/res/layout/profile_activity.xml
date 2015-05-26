@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_image"
+        android:src="@drawable/ic_default_person"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/tool_bar"/>
+
+    <TextView android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/user_image"
+        android:layout_toEndOf="@+id/user_image"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/tool_bar"/>
+
+    <TextView android:id="@+id/like_num"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/user_image"
+        android:layout_toEndOf="@+id/user_image"
+        android:layout_below="@+id/user_name"
+        android:gravity="top"
+        android:paddingLeft="4dp"
+        android:paddingRight="0dp"/>
+
+    <FrameLayout android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/like_num"
+        android:paddingTop="16dp"/>
+
+</RelativeLayout>

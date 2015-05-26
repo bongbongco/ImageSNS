@@ -1,0 +1,4 @@
+When you import (copy) this directory, you need to add below dependencies
+dependencies {
+    compile 'com.mcxiaoke.volley:library:1.0.6' <- ADD THIS LINE
+}

@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/text</item> <!-- the color of the tile text-->
+        <item name="android:textColorSecondary">#FFF</item>
+        <item name="colorPrimary">@color/actionbar_color</item><!-- used for the default action bar background -->
+        <item name="colorPrimaryDark">@color/primary_dark</item> <!-- used for the status bar -->
+        <item name="colorAccent">@color/accent</item> <!-- colorAccent is used to tint widgets -->
+        <item name="windowActionModeOverlay">true</item> <!-- ActionModeを使うのに必要（後述） -->
+        <item name="android:actionMenuTextColor">@color/text</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverFlow</item> <!-- change overflow icon color to white -->
+    </style>
+
+    <!-- this Styles enabled changing overflow icon drawable -->
+    <style name="OverFlow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+    </style>
+
+    <style name="Theme.SettingsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/text</item> <!-- the color of the tile text-->
+        <item name="colorPrimary">@color/actionbar_color</item><!-- used for the default action bar background -->
+        <item name="colorPrimaryDark">@color/primary_dark</item> <!-- used for the status bar -->
+        <item name="colorAccent">@color/accent</item> <!-- colorAccent is used to tint widgets -->
+        <item name="windowActionModeOverlay">true</item> <!-- ActionModeを使うのに必要（後述） -->
+    </style>
+
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="?attr/actionBarSize"
+            android:paddingBottom="48dp">
+
+            <ImageView android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#ecf0f1"
+                android:contentDescription="@string/hello_world"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/user_image"
+                android:src="@drawable/ic_default_person"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                android:layout_below="@+id/item_image"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:text="User Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="bottom"
+                android:layout_below="@+id/item_image"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="72dp"
+                android:paddingStart="72dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"/>
+
+            <TextView android:id="@+id/like_num"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:textSize="14sp"
+                android:layout_below="@+id/user_name"
+                android:paddingLeft="72dp"
+                android:paddingStart="72dp"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:gravity="center_vertical"/>
+
+            <View android:id="@+id/div1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33888888"
+                android:layout_below="@+id/like_num"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+    </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
