@@ -6,4 +6,7 @@
     <dimen name="profile_header_size">96dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
 
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+
 </resources>

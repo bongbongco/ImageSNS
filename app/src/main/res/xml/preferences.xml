@@ -21,11 +21,11 @@
             android:defaultValue="true" />
         <Preference android:title="@string/pref_privacy" >
             <intent android:action="android.intent.action.VIEW"
-                android:data="http://www.kawaiimuseum.net/privacy" />
+                android:data="https://www.tumblr.com/policy/en/privacy" />
         </Preference>
         <Preference android:title="@string/pref_term" >
             <intent android:action="android.intent.action.VIEW"
-                android:data="http://www.kawaiimuseum.net/terms" />
+                android:data="https://www.tumblr.com/policy/en/terms-of-service" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

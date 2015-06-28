@@ -18,7 +18,7 @@ import java.util.HashMap;
  *  2. getCacheJson(context, ImageListFragment.CONTENT_TAG, tag)
  */
 public class CacheHelper {
-    public static final int CACHE_TAG_NUM = 10;
+    public static final int CACHE_TAG_NUM = 30;
     private static final String TAG = CacheHelper.class.getSimpleName();
     private static final String KEY_CACHE_JSON_DEFAULT = "cache_json_default";
     private static final String KEY_CACHE_JSON_TAG_PREFIX = "tag_lru_"; // tag_lru_k is the key of k-th latest tag cache.

@@ -35,7 +35,6 @@
             <TextView android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:text="User Name"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="bottom"
@@ -66,7 +65,57 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"/>
 
-    </RelativeLayout>
+            <HorizontalScrollView android:id="@+id/tag_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/div1"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+                <LinearLayout android:id="@+id/tag_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <View android:id="@+id/div2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33888888"
+                android:layout_below="@+id/tag_scroll"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+            <TextView android:id="@+id/relate_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Related items"
+                android:textColor="@color/text"
+                android:textSize="16sp"
+                android:layout_below="@+id/div2"
+                android:padding="4dp"
+                android:layout_marginLeft="16dp"/>
+
+            <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:verticalSpacing="1dp"
+                android:horizontalSpacing="1dp"
+                android:gravity="center"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:clipToPadding="false"
+                android:layout_below="@+id/relate_title"/>
+
+
+        </RelativeLayout>
     </ScrollView>
 
 

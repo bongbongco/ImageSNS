@@ -46,7 +46,7 @@ public class ImageUploadAsyncTask extends AsyncTask<Void, Void, Pair<Boolean, St
     private final String mURL;
     private final String IMAGE_KEY;
     private final File mFILE;
-    private final ApiCaller.ApiListener mListener;
+    private FlickerApiCaller.ApiListener mListener;
     private final HashMap<String, String> mHeaders;
 
     /**
@@ -56,8 +56,18 @@ public class ImageUploadAsyncTask extends AsyncTask<Void, Void, Pair<Boolean, St
      * @param listener : callback of upload result
      * @param headers  : key value map
      */
+    @Deprecated
     public ImageUploadAsyncTask(String url, File file, String image_key,
                                 ApiCaller.ApiListener listener,HashMap<String, String> headers) {
+        this.mURL = url;
+        this.IMAGE_KEY = image_key;
+        this.mFILE = file;
+        //this.mListener = listener;
+        this.mHeaders = headers;
+    }
+
+    public ImageUploadAsyncTask(String url, File file, String image_key,
+                                FlickerApiCaller.ApiListener listener,HashMap<String, String> headers) {
         this.mURL = url;
         this.IMAGE_KEY = image_key;
         this.mFILE = file;

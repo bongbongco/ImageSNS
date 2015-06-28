@@ -1,7 +1,7 @@
 <resources>
 
     <style name="Theme.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColorPrimary">@color/text</item> <!-- the color of the tile text-->
+        <item name="android:textColorPrimary">@color/white</item> <!-- the color of the tile text-->
         <item name="android:textColorSecondary">#FFF</item>
         <item name="colorPrimary">@color/actionbar_color</item><!-- used for the default action bar background -->
         <item name="colorPrimaryDark">@color/primary_dark</item> <!-- used for the status bar -->
@@ -15,6 +15,9 @@
     <style name="OverFlow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
+
+    <!-- this style is used from Toolbar's popup menu style attribute -->
+    <style name ="MyPopupMenu" parent="android:Theme.Holo.Light"/>
 
     <style name="Theme.SettingsTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/text</item> <!-- the color of the tile text-->

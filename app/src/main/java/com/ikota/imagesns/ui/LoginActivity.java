@@ -22,9 +22,8 @@ import android.widget.ToggleButton;
 
 import com.android.volley.VolleyError;
 import com.ikota.imagesns.R;
-import com.ikota.imagesns.net.ApiCaller;
+import com.ikota.imagesns.net.FlickerApiCaller;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -159,24 +158,28 @@ public class LoginActivity extends ActionBarActivity{
     }
 
     private void createAccount(final String name, final String email, String password) {
-        ApiCaller.getInstance().registerAccount(LoginActivity.this, name, email, password,
-                new ApiCaller.ApiListener() {
+        FlickerApiCaller.getInstance().registerAccount(LoginActivity.this, name, email, password,
+                new FlickerApiCaller.ApiListener() {
                     @Override
                     public void onPostExecute(String response) {
                         showProgress(false);
                         Context context = LoginActivity.this;
                         try {
-                            JSONArray ja = new JSONArray(response);
-                            JSONObject jo = ja.getJSONObject(0);
-                            String user_id = jo.getString("id");
-                            Util.saveUserId(context, user_id);
-                            Util.saveUserName(context, name);
-                            //Util.saveUserEmail(context, email);
-                            // start main activity
-                            Intent intent = new Intent(LoginActivity.this, ImageListActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.fade_in_depth, R.anim.fade_out_depth);
-                            finish();
+                            JSONObject jo = new JSONObject(response);
+                            boolean stat = jo.getBoolean("stat");
+                            if(stat) {
+                                String user_id = jo.getString("id");
+                                Util.saveUserId(context, user_id);
+                                Util.saveUserName(context, name);
+                                //Util.saveUserEmail(context, email);
+                                // start main activity
+                                Intent intent = new Intent(LoginActivity.this, ImageListActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.fade_in_depth, R.anim.fade_out_depth);
+                                finish();
+                            } else {
+                                Toast.makeText(context, getResources().getString(R.string.failed_crate_account), Toast.LENGTH_SHORT).show();
+                            }
                         } catch (JSONException e) {
                             Toast.makeText(context, getResources().getString(R.string.failed_crate_account), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
@@ -193,14 +196,14 @@ public class LoginActivity extends ActionBarActivity{
     }
 
     private void loginAccount(String email, String password) {
-        ApiCaller.getInstance().checkLoginAccount(LoginActivity.this, email, password, new ApiCaller.ApiListener() {
+        FlickerApiCaller.getInstance().checkLoginAccount(LoginActivity.this, email, password, new FlickerApiCaller.ApiListener() {
             @Override
             public void onPostExecute(String response) {
                 Context context = LoginActivity.this;
                 try {
                     JSONObject jo = new JSONObject(response);
-                    boolean success = jo.getBoolean("status");
-                    if(success) {
+                    boolean stat = jo.getBoolean("stat");
+                    if(stat) {
                         String user_id = jo.getString("id");
                         String name = jo.getString("name");
                         Util.saveUserId(context, user_id);

@@ -3,6 +3,7 @@ package com.ikota.imagesns.ui;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,7 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +26,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.google.gson.Gson;
 import com.ikota.imagesns.R;
-import com.ikota.imagesns.bean.ContentBean;
-import com.ikota.imagesns.net.ApiCaller;
+import com.ikota.imagesns.bean.FlickerBean;
+import com.ikota.imagesns.bean.FlickerPhotoInfoBean;
+import com.ikota.imagesns.bean.FlickrRelatedItemBean;
+import com.ikota.imagesns.net.FlickerApiCaller;
 import com.ikota.imagesns.net.MySingleton;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.util.List;
 
 
 /**
@@ -51,6 +58,8 @@ public class ImageDetailFragment extends Fragment{
     // global variables
     private ImageView mItemImage, mUserImage;//, mAlbumImage;
     private TextView mUserName, mLikeNum;
+    private LinearLayout mTagParent;
+    private GridView mGridView;
 
     private DisplayMetrics disp_info = new DisplayMetrics();
     private int actionBarHeight;
@@ -77,6 +86,8 @@ public class ImageDetailFragment extends Fragment{
         mUserName = (TextView)root.findViewById(R.id.user_name);
         mLikeNum = (TextView)root.findViewById(R.id.like_num);
         mScroll = (ScrollView)root.findViewById(R.id.scroll_view);
+        mTagParent = (LinearLayout)root.findViewById(R.id.tag_parent);
+        mGridView = (GridView)root.findViewById(R.id.gridView);
 
         // scroll to match image top and screen top without actionbar
         mScroll.post(new Runnable() {
@@ -88,7 +99,7 @@ public class ImageDetailFragment extends Fragment{
         // get content
         Gson gson = new Gson();
         String json = getArguments().getString(EXTRA_CONTENT);
-        ContentBean content = gson.fromJson(json, ContentBean.class);
+        FlickerBean content = gson.fromJson(json, FlickerBean.class);
         setContent(content);
 
         mScroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -109,10 +120,11 @@ public class ImageDetailFragment extends Fragment{
      * @param content : content object of this item which you get in list page.
      */
     @SuppressWarnings("deprecation")
-    private void setContent(ContentBean content) {
+    private void setContent(FlickerBean content) {
         // set item information which already we know
+        String url = FlickerApiCaller.getInstance().generatePhotoURL(content, "q");
         ImageLoader imageLoader = MySingleton.getInstance(getActivity()).getImageLoader();
-        imageLoader.get(content.url, new ImageLoader.ImageListener() {
+        imageLoader.get(url, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                 Bitmap cached_image = response.getBitmap();
@@ -127,8 +139,7 @@ public class ImageDetailFragment extends Fragment{
             }
         });
         mUserImage.setTag(imageLoader.get(
-                content.user_img_url, ImageLoader.getImageListener(mItemImage, 0, 0)));
-        mUserName.setText(content.user_name);
+                url, ImageLoader.getImageListener(mItemImage, 0, 0)));
         loadDetailInfo(content);
     }
 
@@ -136,16 +147,17 @@ public class ImageDetailFragment extends Fragment{
      * Load json from server and pass it to another method like setContent.
      * @param content : : content object of this item which you get in list page.
      */
-    private void loadDetailInfo(ContentBean content) {
-        ApiCaller.getInstance().getDetailInfo(getActivity(), content.id, new ApiCaller.ApiListener() {
+    private void loadDetailInfo(final FlickerBean content) {
+
+        FlickerApiCaller.getInstance().getDetailInfo(getActivity(), content.id, new FlickerApiCaller.ApiListener() {
             @Override
             public void onPostExecute(String response) {
                 try {
                     // check if this fragment attached to Activity
                     if(isAdded()) {
-                        JSONObject jo = new JSONObject(response);
-                        setContent(jo);
-                        setUserInfo(jo.getJSONObject("user"));
+                        FlickerPhotoInfoBean bean = new FlickerPhotoInfoBean(response);
+                        setContent(bean);
+                        setUserInfo(bean);
                     }
                 } catch (JSONException e) {
                     // server error
@@ -163,21 +175,47 @@ public class ImageDetailFragment extends Fragment{
                 error.printStackTrace();
             }
         });
+
+        FlickerApiCaller.getInstance().getRelatedImages(getActivity(), content.id, new FlickerApiCaller.ApiListener() {
+            @Override
+            public void onPostExecute(String response) {
+                // check if this fragment attached to Activity
+                if(isAdded()) {
+                    FlickrRelatedItemBean bean = new FlickrRelatedItemBean(response);
+                    final ImageDetailRelatedListAdapter adapter = new ImageDetailRelatedListAdapter(getActivity(), bean.galleries);
+                    mGridView.setAdapter(adapter);
+                    mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            Gson gson = new Gson();
+                            FlickerBean item = adapter.getItem(position).toFlickerBean();
+                            if(item == null) return;
+                            String parsed_json = gson.toJson(item);
+                            Intent intent = new Intent(getActivity(), ImageDetailActivity.class);
+                            intent.putExtra(ImageDetailActivity.EXTRA_CONTENT, parsed_json);
+                            startActivity(intent);
+                            getActivity().overridePendingTransition(
+                                    R.anim.slide_in_from_right, R.anim.fade_out_depth );
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onErrorListener(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
     }
 
     /**
      * Read json data and set image
-     * @param jo : root json object of detail info of this content
+     * @param bean : photo info holder object
      * @throws org.json.JSONException : caused by unexpected server response
      */
     @SuppressWarnings("deprecation")
-    private void setContent(JSONObject jo) throws JSONException{
-        if(jo.getInt("item_flg")==1) {
-            // this is video
-            Log.i("Detail-setContent", "movie loaded");
-        } else {
+    private void setContent(FlickerPhotoInfoBean bean) throws JSONException{
             // this is image
-            original_img_url = jo.getString("url");
+            original_img_url = bean.generatePhotoURL("h");
             ImageLoader imageLoader = MySingleton.getInstance(getActivity()).getImageLoader();
             imageLoader.get(original_img_url, new ImageLoader.ImageListener() {
                 @Override
@@ -194,11 +232,47 @@ public class ImageDetailFragment extends Fragment{
                     error.printStackTrace();
                 }
             });
-            int comment_num = jo.getInt("comment_num");
+            int comment_num = Integer.valueOf(bean.comments);
             mLikeNum.setText(comment_num + " like");
             mLikeNum.setTag(comment_num);
-        }
+            setTag(bean.tags);
+    }
 
+    private void setTag(List<FlickerPhotoInfoBean.Tag> tags) {
+        for (FlickerPhotoInfoBean.Tag tag: tags) {
+            TextView v = createTagView(tag._content);
+            v.setTag(tag.id);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TextView v  = (TextView)view;
+                    String query = v.getText().toString();
+                    if(!query.isEmpty()) {
+                        Intent intent = new Intent(getActivity(), TagListActivity.class);
+                        intent.putExtra(TagListActivity.EXTRA_TAG, query);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.fade_out_depth );
+                    }
+                }
+            });
+            mTagParent.addView(v);
+        }
+    }
+
+    private Button createTagView(String tag_title) {
+        Button v = new Button(getActivity());
+        v.setText(tag_title);
+        v.setTextColor(Color.WHITE);
+        v.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        v.setBackgroundColor(getResources().getColor(R.color.theme_color));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        int padding = (int)getResources().getDimension(R.dimen.dp_4);
+        int margin = (int)getResources().getDimension(R.dimen.dp_4);
+        v.setLayoutParams(params);
+        v.setPadding(padding, padding, padding, padding);
+        params.setMargins(margin, margin, margin, margin);
+        return v;
     }
 
     private void adjustViewHeight(View target, int disp_w, int img_w, int img_h) {
@@ -207,13 +281,13 @@ public class ImageDetailFragment extends Fragment{
         target.getLayoutParams().height = (int) (disp_w * (double)img_h/img_w);
     }
 
-    private void setUserInfo(JSONObject jo) throws JSONException{
+    private void setUserInfo(FlickerPhotoInfoBean bean) throws JSONException{
         ImageLoader imageLoader = MySingleton.getInstance(getActivity()).getImageLoader();
         mUserImage.setTag(imageLoader.get(
-                jo.getString("url"), ImageLoader.getImageListener(mUserImage, 0, 0)));
-        mUserName.setText(jo.getString("name"));
+                bean.generateOwnerIconURL(), ImageLoader.getImageListener(mUserImage, 0, 0)));
+        mUserName.setText(bean.owner.username);
 
-        final String user_id = jo.getString("id");
+        final String user_id = bean.owner.nsid;
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
