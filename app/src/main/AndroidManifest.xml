@@ -12,18 +12,26 @@
         android:theme="@style/Theme.MyTheme" >
         <activity
             android:name="com.ikota.imagesns.ui.ImageListActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ikota.imagesns.ui.LoginActivity"/>
-        <activity android:name="com.ikota.imagesns.ui.ImageDetailActivity"/>
-        <activity android:name="com.ikota.imagesns.ui.ProfileActivity"/>
-        <activity android:name="com.ikota.imagesns.ui.UploadActivity"/>
-        <activity android:name="com.ikota.imagesns.ui.SettingsActivity"
+        <activity android:name="com.ikota.imagesns.ui.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.ImageDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.ProfileActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.SearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.TagListActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.UploadActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.ikota.imagesns.ui.SettingsActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.SettingsTheme"/>
+        <!-- search -->
+        <activity android:name="com.ikota.imagesns.search.SearchableActivity" >
+            <intent-filter><action android:name="android.intent.action.SEARCH" /></intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable" />
+        </activity>
     </application>
 
 </manifest>

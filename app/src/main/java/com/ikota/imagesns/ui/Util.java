@@ -10,8 +10,8 @@ import android.preference.PreferenceManager;
  */
 public class Util {
     // mock user information for development
-    private static final String MOCK_USER_ID = "618889";//"19";
-    private static final String MOCK_USER_NAME = "tester";//"Oka Tomomi";
+    public static final String MOCK_USER_ID = "133363540@N06";
+    public static final String MOCK_USER_NAME = "Kota Ishimoto";
 
     private static final String USER_ID_KEY = "user_id";
     private static final String USER_NAME_KEY = "user_name";

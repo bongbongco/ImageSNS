@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.ikota.imagesns.R;
-import com.ikota.imagesns.net.ApiCaller;
+import com.ikota.imagesns.net.FlickerApiCaller;
 
 import java.io.File;
 
@@ -80,10 +80,10 @@ public class UploadActivity extends ActionBarActivity {
                     R.anim.slide_out_to_right
             );
         } else if(id == R.id.action_upload) {
-            ApiCaller.ApiListener listener = new ApiCaller.ApiListener() {
+            FlickerApiCaller.ApiListener listener = new FlickerApiCaller.ApiListener() {
                 @Override
                 public void onPostExecute(String response) {
-                    Toast.makeText(getApplicationContext(), "Uploaded !!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "(Virtually) Uploaded !!", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -98,7 +98,7 @@ public class UploadActivity extends ActionBarActivity {
             int stamp_id = 0;
             Log.i("UploadActivity", String.format("file_path : %s, title : %s, stamp_id : %d ",file_path, title, stamp_id));
 
-            ApiCaller.getInstance().uploadImage(UploadActivity.this, new File(file_path), title, stamp_id, listener);
+            FlickerApiCaller.getInstance().uploadImage(UploadActivity.this, new File(file_path), title, stamp_id, listener);
             finish();
         }
         return super.onOptionsItemSelected(item);

@@ -4,10 +4,10 @@
     tools:context=".MainActivity" >
     <item android:id="@+id/action_post"
         android:title="@string/action_post"
-        app:showAsAction="never" />
-    <!--<item android:id="@+id/action_notifications"-->
-        <!--android:title="@string/action_notifications"-->
-        <!--app:showAsAction="never"/>-->
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_notifications"
+        android:title="@string/action_notifications"
+        app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_account"
         android:title="@string/action_account_set"
         app:showAsAction="never" />

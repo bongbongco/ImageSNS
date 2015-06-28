@@ -42,4 +42,24 @@
     <string name="pref_term">Terms of Service</string>
     <string name="pref_privacy">Privacy &amp; Policy</string>
 
+    <string name="category1">pikachu</string>
+    <string name="category2">hello kitty</string>
+    <string name="category3">pink</string>
+    <string name="category4">kawaii</string>
+    <string name="category5">rilakkuma</string>
+    <string name="category6">anime</string>
+    <string name="category7">fashion</string>
+    <string name="category8">nail</string>
+    <string name="category9">selfie</string>
+    <string name="category10">Harajuku</string>
+    <string name="category11">love</string>
+    <string name="category12">dress</string>
+    <string name="category13">dog</string>
+    <string name="category14">cat</string>
+    <string name="category15">girl</string>
+
+    <string name="search_hint">Search…</string>
+
+    <string name="not_available">Sorry, this feature is not available…</string>
+
 </resources>
